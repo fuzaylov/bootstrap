@@ -1,0 +1,22 @@
+{
+    "name": "fuzaylov/bootstrap",
+    "description": "Helper library to create Bootstrap html fields",
+    "keywords": ["bootstrap", "blade", "html"],
+    "homepage": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Aleks Fuzaylov",
+            "email": "aleks@fuzaylov.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.2.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "Fuzaylov\\Bootstrap": "src/"
+        }
+    }
+}
