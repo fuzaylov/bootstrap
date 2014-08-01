@@ -178,7 +178,7 @@ class Bootstrap {
 	public function password($value, $confirm = false, $isRequired = true, $attributes = [])
 	{
 		$title = $confirm ? 'Confirm Password' : 'Password';
-		$field = $confirm ? 'password_confirmation' : 'password';
+		$field = $confirm ? 'confirm_password' : 'password';
 		return $this->input($field, $title, $value, $attributes, $isRequired, 'password');
 	}
 
