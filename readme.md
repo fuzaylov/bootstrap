@@ -14,6 +14,17 @@ Pull this package in through Composer.
 }
 ```
 
+### Laravel 4
+
+Once installed, you need to register Laravel service provider, in your `app/config/app.php`:
+
+```php
+'providers' => array(
+	...
+    'Fuzaylov\Bootstrap\BootstrapServiceProvider'
+)
+```
+
 ## Usage
 
 See tests/sample.blade.php for some sample usages. For a full list of supported fields, see Bootstrap.php
