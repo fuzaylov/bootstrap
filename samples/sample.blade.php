@@ -36,8 +36,8 @@
 		<div class="panel-body">
 			{{ Bootstrap::title(null) }}
 			{{ Bootstrap::password(null) }}
-			{{ Bootstrap::password(null, Fuzaylov\Bootstrap\Bootstrap::PASSWORD_CONFIRMATION) }}
-			{{ Bootstrap::textarea( 'description', 'Description', null, ['rows'=>5], Fuzaylov\Bootstrap\Bootstrap::WYSIWYG, Fuzaylov\Bootstrap\Bootstrap::NOT_REQUIRED ) }}
+			{{ Bootstrap::confirm_password(null) }}
+			{{ Bootstrap::required()->wysiwyg( 'description', 'Description', null, ['rows'=>5] ) }}
 
 			<div class="row">
 				<div class="col-md-5">
