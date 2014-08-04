@@ -11,24 +11,9 @@ use Request;
 class Bootstrap {
 
 	/**
-	 * Example: Fuzaylov\Bootstrap\Bootstrap::PASSWORD_CONFIRMATION instead of true
+	 * @var bool
 	 */
-	const PASSWORD_CONFIRMATION = true;
-
-	/**
-	 * Example: Fuzaylov\Bootstrap\Bootstrap::REQUIRED instead of true
-	 */
-	const REQUIRED = true;
-
-	/**
-	 * Example: Fuzaylov\Bootstrap\Bootstrap::NOT_REQUIRED instead of false
-	 */
-	const NOT_REQUIRED = false;
-
-	/**
-	 * Example: Fuzaylov\Bootstrap\Bootstrap::WYSIWYG instead of true
-	 */
-	const WYSIWYG = true;
+	private $isRequired = false;
 
 	/**
 	 * Generate nav bar item which does not require dropdown menu
@@ -117,24 +102,23 @@ class Bootstrap {
 	 * @param        $label
 	 * @param        $value
 	 * @param array  $attributes
-	 * @param bool   $isRequired
 	 * @param string $type
 	 *
 	 * @return string
 	 */
-	public function input( $field, $label, $value, $attributes = [], $isRequired = false, $type = 'text' )
+	public function input( $field, $label, $value, $attributes = [], $type = 'text' )
 	{
 		$attributesDefault = ["class" => 'form-control'];
 		$attributes = array_merge($attributesDefault, $attributes);
 
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
-		if ($isRequired) {
-			$html .= $this->required();
-		    $attributes['required'] = 'required';
-		}
+		$html .= $this->fieldRequired();
+	    $attributes['required'] = 'required';
 		$html .= Form::input($type, $field, $value, $attributes);
 		$html .='</div>';
+
+		$this->unsetRequired();
 
 		return $html;
 	}
@@ -145,13 +129,12 @@ class Bootstrap {
 	 * @param       $label
 	 * @param       $value
 	 * @param array $attributes
-	 * @param bool  $isRequired
 	 *
 	 * @return string
 	 */
-	public function text( $field, $label, $value, $attributes = [], $isRequired = false )
+	public function text( $field, $label, $value, $attributes = [] )
 	{
-		return $this->input($field, $label, $value, $attributes, $isRequired, 'text');
+		return $this->input($field, $label, $value, $attributes, 'text');
 	}
 
 	/**
@@ -163,36 +146,46 @@ class Bootstrap {
 	 */
 	public function title($value, $attributes = [])
 	{
-		return $this->text('title', 'Title', $value, $attributes, true);
+		return $this->required()->text('title', 'Title', $value, $attributes, true);
 	}
 
 	/**
-	 * Generate a password/password_confirmation field
-	 * @param       $value
-	 * @param bool  $confirm
-	 * @param bool  $isRequired
-	 * @param array $attributes
+	 * Generate a password field
+	 *
+	 * @param        $value
+	 * @param string $title
+	 * @param array  $attributes
 	 *
 	 * @return string
 	 */
-	public function password($value, $confirm = false, $isRequired = true, $attributes = [])
+	public function password($value, $title = 'Password', $attributes = [])
 	{
-		$title = $confirm ? 'Confirm Password' : 'Password';
-		$field = $confirm ? 'confirm_password' : 'password';
-		return $this->input($field, $title, $value, $attributes, $isRequired, 'password');
+		return $this->input('password', $title, $value, $attributes, 'password');
+	}
+
+	/**
+	 * Generate a confirm_password field
+	 * @param        $value
+	 * @param string $title
+	 * @param array  $attributes
+	 *
+	 * @return string
+	 */
+	public function confirm_password($value, $title = 'Confirm Password', $attributes = [])
+	{
+		return $this->input('confirm_password', $title, $value, $attributes, 'password');
 	}
 
 	/**
 	 * Generate a date field
 	 * @param       $value
 	 * @param array $attributes
-	 * @param bool  $isRequired
 	 *
 	 * @return string
 	 */
-	public function date( $value, $attributes = [], $isRequired = false )
+	public function date( $value, $attributes = [] )
 	{
-		return $this->input('date', 'Date', $value, $attributes, $isRequired, 'date');
+		return $this->input('date', 'Date', $value, $attributes, 'date');
 	}
 
 	/**
@@ -232,7 +225,7 @@ class Bootstrap {
 			'0' => 'Disabled',
 		];
 		$statuses = array_merge($statusesDefault, $statuses);
-		return $this->select('status', 'Status', $statuses, $value);
+		return $this->required()->select('status', 'Status', $statuses, $value);
 	}
 
 	/**
@@ -242,11 +235,10 @@ class Bootstrap {
 	 * @param       $value
 	 * @param array $attributes
 	 * @param bool  $isWysiwyg
-	 * @param bool  $isRequired
 	 *
 	 * @return string
 	 */
-	public function textarea( $field, $label, $value, $attributes = [], $isWysiwyg = false, $isRequired = false )
+	public function textarea( $field, $label, $value, $attributes = [], $isWysiwyg = false )
 	{
 		$attributesDefault = ["class" => 'form-control', 'rows' => 3];
 		if ($isWysiwyg) {
@@ -256,13 +248,27 @@ class Bootstrap {
 
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
-		if ($isRequired) {
-			$html .= $this->required();
-		}
+		$html .= $this->fieldRequired();
 		$html .= Form::textarea($field, $value, $attributes);
 		$html .= $this->groupClose();
 
+		$this->unsetRequired();
+
 		return $html;
+	}
+
+	/**
+	 * Generate a textarea field with a WYSIWYG editor
+	 * @param       $field
+	 * @param       $label
+	 * @param       $value
+	 * @param array $attributes
+	 *
+	 * @return string
+	 */
+	public function wysiwyg( $field, $label, $value, $attributes = [] )
+	{
+		return $this->textarea($field, $label, $value, $attributes);
 	}
 
 	/**
@@ -281,6 +287,25 @@ class Bootstrap {
 		$html .= $this->groupClose();
 
 		return $html;
+	}
+
+	/**
+	 * Set field required
+	 * @return mixed
+	 */
+	public function required()
+	{
+		$this->isRequired = true;
+		return $this;
+	}
+
+	/**
+	 * @return $this
+	 */
+	public function unsetRequired()
+	{
+		$this->isRequired = false;
+		return $this;
 	}
 
 	/**
@@ -305,8 +330,12 @@ class Bootstrap {
 	 * Generate a required span with a star
 	 * @return string
 	 */
-	public function required()
+	public function fieldRequired()
 	{
-		return '<span class="text-warning field-required">*</span>';
+		if ($this->isRequired) {
+			return '<span class="text-warning field-required">*</span>';
+		}
+
+		return '';
 	}
 }
