@@ -114,7 +114,7 @@ class Bootstrap {
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
 		$html .= $this->fieldRequired();
-	    $attributes['required'] = 'required';
+//	    $attributes['required'] = 'required';
 		$html .= Form::input($type, $field, $value, $attributes);
 		$html .='</div>';
 
