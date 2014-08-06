@@ -268,7 +268,7 @@ class Bootstrap {
 	 */
 	public function wysiwyg( $field, $label, $value, $attributes = [] )
 	{
-		return $this->textarea($field, $label, $value, $attributes);
+		return $this->textarea($field, $label, $value, $attributes, true);
 	}
 
 	/**
