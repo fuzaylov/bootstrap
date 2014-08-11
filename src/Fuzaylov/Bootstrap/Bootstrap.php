@@ -224,7 +224,7 @@ class Bootstrap {
 			'1' => 'Enabled',
 			'0' => 'Disabled',
 		];
-		$statuses = array_merge($statusesDefault, $statuses);
+		$statuses = array_replace($statusesDefault, $statuses);
 		return $this->required()->select('status', 'Status', $statuses, $value);
 	}
 
