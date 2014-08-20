@@ -16,6 +16,11 @@ class Bootstrap {
 	private $isRequired = false;
 
 	/**
+	 * @var array
+	 */
+	private $appendAttributes = [];
+
+	/**
 	 * Generate nav bar item which does not require dropdown menu
 	 * @param $navTab
 	 * @param $route
@@ -109,7 +114,7 @@ class Bootstrap {
 	public function input( $field, $label, $value, $attributes = [], $type = 'text' )
 	{
 		$attributesDefault = ["class" => 'form-control'];
-		$attributes = array_merge($attributesDefault, $attributes);
+		$attributes = $this->getAttributes($attributesDefault, $attributes);
 
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
@@ -118,7 +123,7 @@ class Bootstrap {
 		$html .= Form::input($type, $field, $value, $attributes);
 		$html .='</div>';
 
-		$this->unsetRequired();
+		$this->reset();
 
 		return $html;
 	}
@@ -201,7 +206,7 @@ class Bootstrap {
 	public function select( $field, $label, $values, $valueSelected, $attributes = [] )
 	{
 		$attributesDefault = ["class" => 'form-control'];
-		$attributes = array_merge($attributesDefault, $attributes);
+		$attributes = $this->getAttributes($attributesDefault, $attributes);
 
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
@@ -244,7 +249,7 @@ class Bootstrap {
 		if ($isWysiwyg) {
 			$attributesDefault['class'] .= ' wysiwyg';
 		}
-		$attributes = array_merge($attributesDefault, $attributes);
+		$attributes = $this->getAttributes($attributesDefault, $attributes);
 
 		$html = $this->groupOpen();
 		$html .= Form::label($field, $label);
@@ -252,7 +257,7 @@ class Bootstrap {
 		$html .= Form::textarea($field, $value, $attributes);
 		$html .= $this->groupClose();
 
-		$this->unsetRequired();
+		$this->reset();
 
 		return $html;
 	}
@@ -281,7 +286,7 @@ class Bootstrap {
 	public function submit( $title = 'Submit', $attributes = [ ] )
 	{
 		$attributesDefault = ['class' => 'btn btn-primary btn-lg btn-block'];
-		$attributes = array_merge($attributesDefault, $attributes);
+		$attributes = $this->getAttributes($attributesDefault, $attributes);
 		$html = $this->groupOpen();
 		$html .= Form::submit($title, $attributes);
 		$html .= $this->groupClose();
@@ -299,12 +304,19 @@ class Bootstrap {
 		return $this;
 	}
 
+	public function appendAttr( array $attributes )
+	{
+		$this->appendAttributes = array_replace($this->appendAttributes, $attributes);
+		return $this;
+	}
+
 	/**
 	 * @return $this
 	 */
-	public function unsetRequired()
+	public function reset()
 	{
 		$this->isRequired = false;
+		$this->appendAttributes = [];
 		return $this;
 	}
 
@@ -337,5 +349,21 @@ class Bootstrap {
 		}
 
 		return '';
+	}
+
+	private function getAttributes( $defaultAttributes, $userAttributes )
+	{
+
+		// merge default with user attributes
+		$newAttributes = array_replace($defaultAttributes, $userAttributes);
+
+		// append values to existing attributes
+		foreach ($newAttributes as $name => $val) {
+			if (isset($this->appendAttributes[$name])) {
+				$newAttributes[$name] .= ' ' . $this->appendAttributes[$name];
+			}
+		}
+
+		return $newAttributes;
 	}
 }
