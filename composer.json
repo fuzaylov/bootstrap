@@ -1,7 +1,7 @@
 {
     "name": "fuzaylov/bootstrap",
     "description": "Helper library to create Bootstrap html fields",
-    "keywords": ["bootstrap", "blade", "html"],
+    "keywords": ["laravel", "bootstrap", "blade", "html"],
     "homepage": "",
     "license": "MIT",
     "authors": [
