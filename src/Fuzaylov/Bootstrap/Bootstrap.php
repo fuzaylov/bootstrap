@@ -14,6 +14,8 @@ class Bootstrap {
 	 * @var bool
 	 */
 	private $isRequired = false;
+	
+	private $isRequiredHtml5 = false;
 
 	/**
 	 * @var array
@@ -298,9 +300,10 @@ class Bootstrap {
 	 * Set field required
 	 * @return mixed
 	 */
-	public function required()
+	public function required($isRequiredHtml5 = false)
 	{
 		$this->isRequired = true;
+		$this->isRequiredHtml5 = $isRequiredHtml5;
 		return $this;
 	}
 
@@ -316,6 +319,7 @@ class Bootstrap {
 	public function reset()
 	{
 		$this->isRequired = false;
+		$this->isRequiredHtml5 = false;
 		$this->appendAttributes = [];
 		return $this;
 	}
@@ -362,6 +366,10 @@ class Bootstrap {
 			if (isset($this->appendAttributes[$name])) {
 				$newAttributes[$name] .= ' ' . $this->appendAttributes[$name];
 			}
+		}
+		
+		if ($this->isRequiredHtml5) {
+			$newAttributes['required'] = 'required';
 		}
 
 		return $newAttributes;
