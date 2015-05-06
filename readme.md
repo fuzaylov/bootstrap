@@ -14,7 +14,7 @@ Pull this package in through Composer.
 }
 ```
 
-### Laravel 4
+### Laravel
 
 Once installed, you need to register Laravel service provider, in your `app/config/app.php`:
 
