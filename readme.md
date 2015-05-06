@@ -9,7 +9,7 @@ Pull this package in through Composer.
 ```js
 {
     "require": {
-        "fuzaylov/bootstrap": "0.2.8"
+        "fuzaylov/bootstrap": "0.3.0"
     }
 }
 ```
