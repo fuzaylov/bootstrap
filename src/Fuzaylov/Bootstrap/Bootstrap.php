@@ -289,10 +289,12 @@ class Bootstrap {
 	 */
 	public function submit( $title = 'Submit', $attributes = [ ] )
 	{
-		$attributesDefault = ['class' => 'btn btn-primary btn-lg btn-block'];
+		$attributesDefault = ['class' => 'btn btn-primary'];
 		$attributes = $this->getAttributes($attributesDefault, $attributes);
 		$html = $this->groupOpen();
-		$html .= Form::submit($title, $attributes);
+		$html .= '<div class="col-md-6 col-md-offset-4">';
+			$html .= Form::submit($title, $attributes);
+		$html .= '</div>';
 		$html .= $this->groupClose();
 
 		return $html;
