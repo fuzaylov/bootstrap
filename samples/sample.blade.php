@@ -15,15 +15,15 @@
 
 			<ul class="nav navbar-nav">
 
-				{{ Bootstrap::navbar('index', 'bootstrap.index', 'Index') }}
+				{!! Bootstrap::navbar('index', 'bootstrap.index', 'Index') !!}
 
-				{{ Bootstrap::navbarDropdown('links', 'Links',
+				{!! Bootstrap::navbarDropdown('links', 'Links',
 				[
 				'bootstrap.link1' => 'Link1',
 				'bootstrap.link2' => 'Link2',
 				'bootstrap.link3' => 'Link3',
 				]
-				)}}
+				)!!}
 
 			</ul>
 
@@ -34,15 +34,15 @@
 	<div class="panel panel-default">
 		<div class="panel-heading"><h3 class="panel-title">Sample</h3></div>
 		<div class="panel-body">
-			{{ Bootstrap::title(null) }}
-			{{ Bootstrap::password(null) }}
-			{{ Bootstrap::appendAttr(['class' => 'myclass'])->confirm_password(null) }}
-			{{ Bootstrap::required()->wysiwyg( 'description', 'Description', null, ['rows'=>5] ) }}
+			{!! Bootstrap::title(null) !!}
+			{!! Bootstrap::password(null) !!}
+			{!! Bootstrap::appendAttr(['class' => 'myclass'])->confirm_password(null) !!}
+			{!! Bootstrap::required()->wysiwyg( 'description', 'Description', null, ['rows'=>5] ) !!}
 
 			<div class="row">
 				<div class="col-md-5">
-					{{ Bootstrap::submit() }}
-					{{ Bootstrap::submit('My Own Title') }}
+					{!! Bootstrap::submit() !!}
+					{!! Bootstrap::submit('My Own Title') !!}
 				</div>
 			</div>
 		</div>
