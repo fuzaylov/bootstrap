@@ -9,12 +9,14 @@ Pull this package in through Composer.
 ```js
 {
     "require": {
-        "fuzaylov/bootstrap": "0.2.*"
+        "fuzaylov/bootstrap": "0.2.7"
     }
 }
 ```
 
-### Laravel
+### Laravel 5
+
+Note, for laravel 4, use fuzaylov/bootstrap version 0.2.5
 
 Once installed, you need to register Laravel service provider, in your `app/config/app.php`:
 
