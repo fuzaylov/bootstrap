@@ -119,10 +119,12 @@ class Bootstrap {
 		$attributes = $this->getAttributes($attributesDefault, $attributes);
 
 		$html = $this->groupOpen();
-		$html .= Form::label($field, $label);
+		$html .= Form::label($field, $label, ['class' => "col-md-4 control-label"]);
 		$html .= $this->fieldRequired();
 //	    $attributes['required'] = 'required';
-		$html .= Form::input($type, $field, $value, $attributes);
+		$html .= '<div class="col-md-6">';
+			$html .= Form::input($type, $field, $value, $attributes);
+		$html .= '</div>';
 		$html .='</div>';
 
 		$this->reset();
