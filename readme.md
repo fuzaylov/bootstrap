@@ -23,7 +23,13 @@ Once installed, you need to register Laravel service provider, in your `app/conf
 ```php
 'providers' => array(
 	...
+	'Illuminate\Html\HtmlServiceProvider',
     'Fuzaylov\Bootstrap\BootstrapServiceProvider'
+)
+
+'aliases' => array(
+    ...
+    'Form'      => 'Illuminate\Html\FormFacade',
 )
 ```
 
