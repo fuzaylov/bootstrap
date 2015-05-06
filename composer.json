@@ -2,17 +2,11 @@
     "name": "fuzaylov/bootstrap",
     "description": "Helper library to create Bootstrap html fields",
     "keywords": ["laravel", "bootstrap", "blade", "html"],
-    "homepage": "",
+    "homepage": "https://github.com/fuzaylov/bootstrap/",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Aleks Fuzaylov",
-            "email": "aleks@fuzaylov.com"
-        }
-    ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.2.*"
+        "illuminate/html": "5.*"
     },
     "autoload": {
         "psr-0": {
