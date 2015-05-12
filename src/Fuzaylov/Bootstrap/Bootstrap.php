@@ -182,7 +182,7 @@ class Bootstrap {
 	 */
 	public function confirm_password($value, $title = 'Confirm Password', $attributes = [])
 	{
-		return $this->input('confirm_password', $title, $value, $attributes, 'password');
+		return $this->input('password_confirmation', $title, $value, $attributes, 'password');
 	}
 
 	/**
